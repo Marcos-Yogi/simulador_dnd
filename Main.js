@@ -2,34 +2,30 @@ import OpenAI from "./node_modules/openai";
 let Context = "";
 let Turns = 0;
 let userInput = "";
-let Total_Turns = 10;
-const client = new OpenAI({apiKey : "OpenAIKey", dangerouslyAllowBrowser: true  });
+let atitude = "";
+let Total_Turns = 5;
+const client = new OpenAI({apiKey : "OPENAI_API_KEY", dangerouslyAllowBrowser: true  });
 async function NewInput() {
     
-    if (Turns >= 10) {
-        userInput = "I'm sorry, but I can't continue this story anymore. It's time to say goodbye, did i win?"
+    if (Turns >= 5) {
+        atitude = "The Narrator, MUST END THE HISTORY IN THIS IMPUT, DECIDING VICTORY, OR DEFEAT FOR THE USER"
+    }
+    else {
+        atitude = "The history UNDER NO CIRCUNSTANTE can END, VICTORY and DEFEAT ARE IMPOSSIBLE, ALL RESPONSES MUST INCLUDE SOMETHING THAT LEADS TO ANOTHER USER INPUT, NEVER DECIDE HOW THE USER REACTS, sometimes make the result be extremely unexpected"
+    }
+
+    if (Turns >= 5) {
+        userInput = "Desculpe, mas não posso continuar mais essa história. É hora de dizer adeus, eu venci?"
     }
     else {
         userInput = document.getElementById("Input").value;
     }
     const completion = await client.chat.completions.create({
-        model: "ft:gpt-4o-mini-2024-07-18:masters-mercy-mm::BD9IjV1x",
+        model: "ft:gpt-4o-mini-2024-07-18:masters-mercy-mm:adreeu:BEb4ivBd",
         messages: [
             { 
                 role: "system", 
-                content: "Narrator is a storyteller of fantastical settings. He is deeply cynical, yet He tries his best to make the input of the users work inside her setting.",
-            },
-            { 
-                role: "system", 
-                content: "Narrator rolls a dice at every input, the value of the d20 decides how the user action went, always tell the dice result",
-            },
-            { 
-                role: "system", 
-                content: "If the player Survives the monster, Narrator will get frustaded and pull out a new WAY STRONGER monster.",
-            },
-            { 
-                role: "system", 
-                content: "All answers must be as long and descriptive as possible",
+                content: atitude,
             },
             {
                 role: "developer",
